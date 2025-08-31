@@ -23,11 +23,16 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class BitBltFromMemoryDC_OPENGL {
 
-    private static final int SRCCOPY = 0x00CC0020;
+    private static final String APPLICATION_NAME = "Roblox";
+    private static final String FRAGMENT_SHADER_FILE = "invert.glsl";
+    private static final String VERTEX_SHADER_FILE = "vertex.glsl";
+    
     private static final int OFFSET_X = 8;
     private static final int OFFSET_Y = 31;
     private static final int WIDTH_ADJUST = -16;
     private static final int HEIGHT_ADJUST = -39;
+
+    private static final int SRCCOPY = 0x00CC0020;
 
     static RECT rect = new RECT();
     static Memory buffer;
@@ -189,8 +194,8 @@ public class BitBltFromMemoryDC_OPENGL {
     }
 
     private static int createShaderProgram() throws Exception {
-        String vert = loadShaderFromResource("vertex.glsl");
-        String frag = loadShaderFromResource("neonPulse.glsl"); 
+        String vert = loadShaderFromResource(VERTEX_SHADER_FILE);
+        String frag = loadShaderFromResource(FRAGMENT_SHADER_FILE); 
         int vs = glCreateShader(GL_VERTEX_SHADER);
         glShaderSource(vs, vert);
         glCompileShader(vs);
