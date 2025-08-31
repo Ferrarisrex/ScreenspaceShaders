@@ -10,6 +10,8 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWNativeWin32;
 import org.lwjgl.opengl.GL;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.nio.ByteBuffer;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -221,9 +223,16 @@ public class BitBltFromMemoryDC_OPENGL {
     }
 
     private static String loadShaderFromResource(String name) throws Exception {
-        try (var is = BitBltFromMemoryDC_OPENGL.class.getResourceAsStream("/com/ferra/shaders/" + name)) {
-            if (is == null) throw new RuntimeException("Shader not found: " + name);
-            return new String(is.readAllBytes());
+    try (InputStream is = BitBltFromMemoryDC_OPENGL.class.getResourceAsStream("/com/ferra/shaders/" + name)) {
+        if (is == null) throw new RuntimeException("Shader not found: " + name);
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int bytesRead;
+        while ((bytesRead = is.read(buffer)) != -1) {
+            bos.write(buffer, 0, bytesRead);
         }
+        return bos.toString();
     }
+}
 }

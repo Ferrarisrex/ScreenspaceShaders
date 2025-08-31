@@ -14,6 +14,15 @@ import javax.imageio.ImageIO;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL13.glActiveTexture;
+import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.GL_ELEMENT_ARRAY_BUFFER;
+import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
+import static org.lwjgl.opengl.GL15.glBindBuffer;
+import static org.lwjgl.opengl.GL15.glBufferData;
+import static org.lwjgl.opengl.GL15.glDeleteBuffers;
+import static org.lwjgl.opengl.GL15.glGenBuffers;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.system.MemoryUtil.*;
@@ -46,7 +55,8 @@ public class ShaderProcessor {
             GL.createCapabilities();
 
             // Compile shaders
-            String vertexSrc = """
+            String vertexSrc = ""; //changed for compatibility with java 8
+            /*String vertexSrc = """
                 #version 330 core
                 layout(location=0) in vec2 aPos;
                 layout(location=1) in vec2 aTex;
@@ -55,9 +65,9 @@ public class ShaderProcessor {
                     texCoord = aTex;
                     gl_Position = vec4(aPos, 0.0, 1.0);
                 }
-            """;
+            """;*/
 
-            String fragmentSrc = Files.readString(Path.of(fragmentShaderFile));
+            String fragmentSrc = new String(Files.readAllBytes(Paths.get(fragmentShaderFile)));
             shaderProgram = compileShader(vertexSrc, fragmentSrc);
 
             // Fullscreen quad data (pos, texcoord)
