@@ -23,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class BitBltFromMemoryDC_OPENGL {
 
-    private static final String APPLICATION_NAME = "Roblox";
+    private static final String APPLICATION_NAME = "Command Prompt";
     private static final String FRAGMENT_SHADER_FILE = "invert.glsl";
     private static final String VERTEX_SHADER_FILE = "vertex.glsl";
     
@@ -44,7 +44,7 @@ public class BitBltFromMemoryDC_OPENGL {
     static long startTime = System.nanoTime();
 
     public static void main(String[] args) throws Exception {
-        HWND hwndTarget = User32.INSTANCE.FindWindow(null, "Roblox");
+        HWND hwndTarget = User32.INSTANCE.FindWindow(null, APPLICATION_NAME);
         if (hwndTarget == null) {
             System.err.println("Target window not found!");
             return;
